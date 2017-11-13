@@ -1,11 +1,8 @@
 package action;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +12,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import bsh.ParseException;
+import SQL.sqlconnect;
+
 
 public class yuyue  extends ActionSupport{
 	/**
@@ -27,13 +25,15 @@ public class yuyue  extends ActionSupport{
     HttpSession session = req.getSession();
 
     String username = req.getParameter("username");
-	String role = req.getParameter("role");
-	
-
+   	String role = req.getParameter("role");
+   	static sqlconnect sqlcon = new sqlconnect();
+   	
     public String y(){
-    	
-		return SUCCESS;
+       	ArrayList<ArrayList<String>> yuyuelist = sqlcon.yuyue(username, role);
+       	session.setAttribute("username", username);
+   		session.setAttribute("role", role);
+   		session.setAttribute("yuyuelist", yuyuelist);
+   		return SUCCESS;
     }
-    
     
 }

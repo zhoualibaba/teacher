@@ -96,7 +96,7 @@ String username = (String)session.getAttribute("username");
 		<tr >
 			<td width = "120px"> <a href="jiansuo?username=<%=username %>&Er=0" target = "student">教师检索</a></td>
 			<td width = "120px"> <a href="tuijian.jsp" target = "student">教师推荐</a></td>
-			<td width = "120px"> <a href="yuyue" target = "student">我的预约</a></td>
+			<td width = "120px"> <a href="yuyue?username=<%=username %>&role=student" target = "student">我的预约</a></td>
 			<td></td>
 		</tr>
 	</table>	

@@ -16,7 +16,7 @@
     color:#000000;  
     display:block;  
     width:50px;  
-    height:30px;  
+    height:20px;  
     text-align:center;  
 }  
 #daohang a:hover{  
@@ -33,8 +33,9 @@
 
 <% 
 String role = (String)session.getAttribute("role");
-String name = (String)session.getAttribute("name");
 String username = (String)session.getAttribute("username");
+ArrayList<ArrayList<String>> moneylist = (ArrayList<ArrayList<String>>)session.getAttribute("moneylist");
+
 %>
 
 <input name = "username"  type="hidden" value=<%=session.getAttribute("username") %>>
@@ -42,21 +43,39 @@ String username = (String)session.getAttribute("username");
 <br><br><br><br>
 <table id="daohang" border=0 align=center  cellpadding=0 cellspacing=0 bordercolor=black>
 <%
-for(int i = 0; i < 5; i++){
+for(int i = 0; i < moneylist.size(); i++){
+	ArrayList<String> ml = moneylist.get(i);
+	String ID = ml.get(0);
+	String what = ml.get(1);
+	String money = ml.get(2);
 	%>
 		<tr align = "center">
 			<td width = 50px align = "left"><%=i+1 %></td>
-			<td width = 200px></td>
-			<td width = 200px><%=i %>￥</td>
-			<td width = 50px><a href = "changemoney?id=<%= i %>&role=<%= role%>&username=<%=username %>">更改</a></td>
-			<td width ="5px"></td>
-			<td width = 50px><a href = "delmoney?id=<%= i %>&role=<%= role%>&username=<%=username %>">删除</a></td>
+			<td width = 200px><%=what %></td>
+			<td width = 200px>￥<%=money %></td>
+			<%
+				if(role.equals("teacher")){
+			%>
+			<td width = 50px><a href = "changemoney?id=<%= ID %>&role=<%= role%>&username=<%=username %>">更改</a></td>
+			<td width ="10px"></td>
+			<td width = 50px><a href = "delmoney?id=<%= ID %>&role=<%= role%>&username=<%=username %>">删除</a></td>
+					<%
+				}
+			%>
 		</tr>
-		<tr height = "2px" ></tr>
+		<tr height = "10px" ></tr>
 	<%
 }
-%>
 
+				if(role.equals("teacher")){
+	%>
+<tr height = 100px></tr>
+<tr>
+		<td colspan="6"><button type="submit" onclick = "return check()" style="width:560px;height:30px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">增加</button></td>
+</tr>
+	<%
+				}
+	%>
 </table>
 
 <br><br><br><br><br><br><br>

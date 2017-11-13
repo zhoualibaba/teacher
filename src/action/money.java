@@ -15,7 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import bsh.ParseException;
+import SQL.sqlconnect;
 
 public class money  extends ActionSupport{
 	/**
@@ -28,10 +28,13 @@ public class money  extends ActionSupport{
 
     String username = req.getParameter("username");
 	String role = req.getParameter("role");
-	
+	static sqlconnect sqlcon = new sqlconnect();
 	
     public String m(){
-    	
+    	ArrayList<ArrayList<String>> moneylist = sqlcon.money(username, role);
+    	session.setAttribute("username", username);
+		session.setAttribute("role", role);
+		session.setAttribute("moneylist", moneylist);
 		return SUCCESS;
     }
     

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.sql.*;
@@ -68,5 +69,173 @@ public class sqlconnect {
 		}
 	}
 	
+	public int getID(String username ,String role){
+		int id = -1;
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Password");
+
+			while(rs.next()){
+				if(username.equals(rs.getString("username")) && role.equals(rs.getString("role"))){
+					 id = rs.getInt("ID");
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return id;
+	}
 	
+	public String getname(int ID, String role){
+		String name = null;
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Password");
+
+			while(rs.next()){
+				if(ID == rs.getInt("ID") && role.equals(rs.getString("role"))){
+					name = rs.getString("name");
+				} 
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return name;
+		
+	}
+	
+	public String getusername(int ID, String role){
+		String name = null;
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Password");
+
+			while(rs.next()){
+				if(ID == rs.getInt("ID") && role.equals(rs.getString("role"))){
+					name = rs.getString("username");
+				} 
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return name;
+		
+	}
+	
+	public ArrayList<ArrayList<String>> money(String username, String role){
+		int id = getID(username, "teacher");
+		
+		ArrayList<ArrayList<String>> moneylist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Money");
+
+			while(rs.next()){
+				if(id == rs.getInt("teacherID")){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					ml.add(String.valueOf(rs.getInt("ID")));
+					ml.add(rs.getString("what"));
+					ml.add(rs.getString("money"));
+					moneylist.add(ml);
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return moneylist;
+	}
+	
+	public ArrayList<ArrayList<String>> keyan(String username, String role){
+		int id = getID(username, "teacher");
+		
+		ArrayList<ArrayList<String>> keyanlist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Keyan");
+
+			while(rs.next()){
+				if(id == rs.getInt("teacherID")){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					ml.add(String.valueOf(rs.getInt("ID")));
+					ml.add(rs.getString("what"));
+					keyanlist.add(ml);
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return keyanlist;
+	}
+
+	public ArrayList<ArrayList<String>> yuyue(String username, String role) {
+		int id = getID(username,role);
+		ArrayList<ArrayList<String>> yuyuelist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Yuyue");
+
+			while(rs.next()){
+				if((role.equals("teacher") && id == rs.getInt("teacherID")) || (role.equals("student") && id == rs.getInt("studentID"))){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					ml.add(String.valueOf(rs.getInt("ID")));
+					int studentID = rs.getInt("studentID");
+					int teacherID = rs.getInt("teacherID");
+					ml.add(getname(studentID,"student"));
+					ml.add(getname(teacherID,"teacher"));
+					ml.add(rs.getString("time"));
+					yuyuelist.add(ml);
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return yuyuelist;
+	}
+
+	public ArrayList<ArrayList<String>> jiansuo(String A, String B, String C, String D) {
+		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				if((rs.getString("Ժϵ").equals(A) || "ALL".equals(A)) && (rs.getString("ְλ").equals(C) || "ALL".equals(C)) && (rs.getString("major").equals(B) || "ALL".equals(B)) && (rs.getString("sex").equals(D) || "ALL".equals(D))){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					
+					int ID = rs.getInt("ID");
+					ml.add(getname(ID,"teacher"));
+					ml.add(rs.getString("Ժϵ"));
+					ml.add(rs.getString("major"));
+					ml.add(rs.getString("ְλ"));
+					ml.add(rs.getString("sex"));
+					ml.add(getusername(ID,"teacher"));
+
+					jiansuolist.add(ml);
+				} 
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return jiansuolist;
+	}
 }

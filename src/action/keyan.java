@@ -1,11 +1,8 @@
 package action;
 
 
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +12,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import bsh.ParseException;
+import SQL.sqlconnect;
 
 public class keyan  extends ActionSupport{
 	/**
@@ -25,14 +22,16 @@ public class keyan  extends ActionSupport{
 	ServletRequest request = ServletActionContext.getRequest();
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
-
     String username = req.getParameter("username");
-	String role = req.getParameter("role");
-	
-
+   	String role = req.getParameter("role");
+   	static sqlconnect sqlcon = new sqlconnect();
+   	
     public String k(){
-    	
-		return SUCCESS;
+       	ArrayList<ArrayList<String>> keyanlist = sqlcon.keyan(username, role);
+       	session.setAttribute("username", username);
+   		session.setAttribute("role", role);
+   		session.setAttribute("keyanlist", keyanlist);
+   		return SUCCESS;
     }
     
     
