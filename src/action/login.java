@@ -1,3 +1,4 @@
+
 package action;
 
 /*
@@ -12,6 +13,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import SQL.sqlconnect;
+
 public class login  extends ActionSupport{
 	/**
 	 * 
@@ -20,21 +23,20 @@ public class login  extends ActionSupport{
 	ServletRequest request = ServletActionContext.getRequest();
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
-    
+    static sqlconnect sqlcon = new sqlconnect();
     
     public String login_in() {
     	
     	String username = req.getParameter("username");
     	String password = req.getParameter("password");
     	String role = req.getParameter("role");
+    	String name = sqlcon.login(username, role, password);
     	
-    	
-    	if(username.equals("1") && password.equals("3")){
+    	if(name.length() != 0){
+    		session.setAttribute("name", name);
     		session.setAttribute("username", username);
     		session.setAttribute("password", password);
     		session.setAttribute("role", role);
-    		String name = "XXX";
-    		session.setAttribute("name", name);
     		if(role.equals("teacher")){
         		String number = "0"; //数据库得到老师预约条数
         		session.setAttribute("num", number);
@@ -46,3 +48,4 @@ public class login  extends ActionSupport{
 		return role;
     }
 }
+

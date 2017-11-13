@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>library</title>
+<title>有意义的更改密码界面</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style type="text/css">
@@ -60,6 +60,7 @@ function check(){
 </head>
 
 <body>
+<form action = "passwordchange">
 	<input name="username" type="hidden"  value="<%=session.getAttribute("username") %>">
 	<input id="password" type="hidden" value="<%=session.getAttribute("password") %>">
 	<input name="role" type="hidden" value="<%=session.getAttribute("role") %>">
@@ -67,7 +68,7 @@ function check(){
 	<div style="height:100px"></div>
 	<div >
 	<center>
-	<form action = "passwordchange">
+	
 		<table width = "400px"  border="0" cellpadding="0" cellspacing="0" >
 	<tr height = "40px">
 	<td></td>
@@ -133,14 +134,14 @@ function check(){
 	<tr height = "20px"></tr>
 	<tr height = "30px">
 	<td></td>
-	<td colspan="2"><button type="submit" onclick = "return check()" style="height:30px;width:282px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">登录</button></td>
+	<td colspan="2"><button type="submit" onclick = "return check()" style="height:30px;width:282px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">更新</button></td>
 	</tr>
 
 	</table>
-	</form>
+
 	</center> 
 	</div>
-     
+     </form>
     
 </body>
 

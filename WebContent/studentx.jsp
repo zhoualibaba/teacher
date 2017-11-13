@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>teacher</title>
+<title>有意义的浏览界面</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link  href="top.css" rel="stylesheet" type="text/css" />
 <style type="text/css">  

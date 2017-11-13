@@ -14,6 +14,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import SQL.sqlconnect;
+
 public class passwordchange  extends ActionSupport{
 	/**
 	 * 
@@ -22,12 +24,13 @@ public class passwordchange  extends ActionSupport{
 	ServletRequest request = ServletActionContext.getRequest();
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
+    static sqlconnect sqlcon = new sqlconnect();
     
     public String pwdchange() {
     	String username = req.getParameter("username");
     	String password = req.getParameter("newpassword");
     	String role = req.getParameter("role");
-    	
+    	sqlcon.passwordchange(username, role, password);
     	request.setAttribute("errorFlag", "2");
 		return SUCCESS;
     }
