@@ -103,5 +103,11 @@
 			</result>
 		</action>
 		
+		<action name="yy" method="y" class="action.appoint">
+			<result>
+				appoint.jsp
+			</result>
+		</action>
+		
 	</package>
 </struts>

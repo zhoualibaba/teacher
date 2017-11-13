@@ -1,10 +1,5 @@
 package SQL;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -294,5 +289,77 @@ public class sqlconnect {
 			e.printStackTrace();
 		}
 		return jiansuolist;
+	}
+
+	public ArrayList<ArrayList<String>> appoint(String username, String role, int n) {
+		int id = getID(username, "teacher");
+		
+		ArrayList<ArrayList<String>> keyanlist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from appoint");
+
+			while(rs.next()){
+				if(id == rs.getInt("teacherID") && rs.getInt("n") == n){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					ml.add(String.valueOf(rs.getInt("ID")));
+					ml.add(rs.getString("i"));
+					ml.add(rs.getString("j"));
+					ml.add(rs.getString("what"));
+					int x = 0;
+					for(x = 0; x < keyanlist.size(); x++){
+						int i = Integer.valueOf(keyanlist.get(x).get(1));
+						int j = Integer.valueOf(keyanlist.get(x).get(2));
+						if((i == rs.getInt("i") && j > rs.getInt("j")) || (i > rs.getInt("i"))){
+							break;
+						}
+					}
+					
+					keyanlist.add(x, ml);
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return keyanlist;
+	}
+	
+	public void yy(int i , int j ,int n ,String teachername,String studentname){
+		int tid = getID(teachername,"teacher");
+		int sid = getID(studentname,"student");
+		String sname = getname(sid,"student");
+		try{
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into yuyue(ID,studentID,teacherID,"
+																					+ "time) values(?,?,?,?)");
+			ps.setInt(1,0);
+			ps.setInt(2, sid);
+			ps.setInt(3, tid);
+			ps.setString(4, "第" + n + "周的周" + j + "第" + i + "节课");
+			ps.executeUpdate();
+			ps.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		try{
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into appoint(ID,teacherID,n,i,j,"
+																					+ "what) values(?,?,?,?,?,?)");
+			ps.setInt(1,0);
+			ps.setInt(2, tid);
+			ps.setInt(3, n);
+			ps.setInt(4, i);
+			ps.setInt(5, j);
+			ps.setString(6, sname + "已预约");
+			ps.executeUpdate();
+			ps.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
 	}
 }

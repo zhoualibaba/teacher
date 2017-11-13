@@ -15,7 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import bsh.ParseException;
+import SQL.sqlconnect;
 
 public class appoint  extends ActionSupport{
 	/**
@@ -28,6 +28,9 @@ public class appoint  extends ActionSupport{
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String username = req.getParameter("username");
 	String role = req.getParameter("role");
+	String sname = req.getParameter("sname");
+
+	static sqlconnect sqlcon = new sqlconnect();
 	
 	ArrayList<String> ddd = new ArrayList<String>();
     public String app() {
@@ -69,7 +72,7 @@ public class appoint  extends ActionSupport{
     	String i = req.getParameter("i");
     	String j = req.getParameter("j");
     	String n = req.getParameter("n");
-    	//ijn存进去
+    	sqlcon.yy(Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(n), username, sname);
     	a(Integer.valueOf(n));
     	return SUCCESS;
     }
@@ -97,10 +100,14 @@ public class appoint  extends ActionSupport{
 			//System.out.println(putDate);
 			ddd.add(putDate);
 		}
-		
+    	ArrayList<ArrayList<String>> applist = sqlcon.appoint(username, role,n);
+		session.setAttribute("applist", applist);
+
 		String ndate = sdf.format(nowdate);
 		session.setAttribute("role", role);
 		session.setAttribute("username", username);
+		session.setAttribute("sname", sname);
+
 		session.setAttribute("n", String.valueOf(n));
 		session.setAttribute("ndate", ndate);
 		session.setAttribute("ddd", ddd);
@@ -126,5 +133,14 @@ public class appoint  extends ActionSupport{
         // 计算差多少秒//输出结果
         // long sec = diff % nd % nh % nm / ns;
         return day;
+    }
+    public static void sort(ArrayList<ArrayList<String>> applist){
+    	for(int i = 0 ; i < applist.size(); i ++){
+    		for(int j = applist.size() - 1; j > i ; j --){
+    			if(Integer.valueOf(applist.get(j).get(1)) <  Integer.valueOf(applist.get(j - 1).get(1))){
+    				
+    			}
+    		}
+    	}
     }
 }

@@ -53,10 +53,12 @@ function check(){
 
 <% 
 String role = (String)session.getAttribute("role");
-String name = (String)session.getAttribute("name");
 String username = (String)session.getAttribute("username");
+String sname = (String)session.getAttribute("sname");
 String n = (String)session.getAttribute("n");
 String ndate = (String)session.getAttribute("ndate");
+ArrayList<ArrayList<String>> applist = (ArrayList<ArrayList<String>>)session.getAttribute("applist");
+
 ArrayList<String> ddd = (ArrayList<String>)session.getAttribute("ddd");
 %>
 
@@ -101,7 +103,9 @@ ArrayList<String> ddd = (ArrayList<String>)session.getAttribute("ddd");
 
 </tr>
 <%
+int k = 0;
 for(int i = 0; i < 8; i ++){
+	String ii = "";
 	%><tr align = "center"><%
 	if(i == 0){
 		%><td  rowspan=4  align=center>上午</td><%
@@ -111,15 +115,24 @@ for(int i = 0; i < 8; i ++){
 	}
 	%><td  >第<br><%=i + 1 %><br>节</td><%
 	for(int j = 0; j < 7; j ++){
-		if(i + j == 0){
+		
+		String jj = "";
+		String what = "";
+		if(k < applist.size()){
+			ArrayList<String> ml = applist.get(k);
+			ii = ml.get(1);
+			jj = ml.get(2);
+			what = ml.get(3);
+		}
+		if(String.valueOf(i + 1).equals(ii) && String.valueOf(j + 1).equals(jj)){
+			k ++;
+			%><td><%=what %></td><%
+		}else{
 			if(role.equals("teacher")){
 				%><td bgcolor="#b7d3df"><a href = "#" title = "点击添加此时间的行程安排">添加</a></td><%
 			}else{
-				%><td bgcolor="#b7d3df"><a href = "yy?i=<%=i%>&j=<%=j%>&n=<%=n%>&role=<%= role%>&username=<%=username %>" onclick ="check()">可预约</a></td><%
+				%><td bgcolor="#b7d3df"><a href = "yy?i=<%=i + 1%>&j=<%=j + 1%>&n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>" onclick ="check()">可预约</a></td><%
 			}
-		
-		}else{
-			%><td  >星期<%=j+1 %> 的   第<%=i+1 %>节课</td><%
 		}
 	}
 	

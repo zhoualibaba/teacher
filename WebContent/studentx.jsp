@@ -91,7 +91,7 @@ String teachername = (String)request.getParameter("teachername");
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
 			<td width = "120px"> <a href="yuyue?username=<%= teachername %>&role=student" target = "js">教师信息</a></td>
-			<td width = "90px"> <a href="appoint?username=<%= teachername %>&role=student" target = "js">行程安排</a></td>
+			<td width = "90px"> <a href="appoint?username=<%= teachername %>&role=student&sname=<%=username %>" target = "js">行程安排</a></td>
 			<td width = "90px"> <a href="money?username=<%= teachername %>&role=student" target = "js">教师基金</a></td>
 			<td width = "90px"> <a href="keyan?username=<%= teachername %>&role=student" target = "js">科研成果</a></td>
 			<td></td>
