@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>teacher</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link  href="top.css" rel="stylesheet" type="text/css" />
+
 <style type="text/css">  
 
  
@@ -62,6 +62,15 @@
 
 </head>
 <body onload="numF()">
+
+<%
+String role = (String)session.getAttribute("role");
+String name = (String)session.getAttribute("name");
+
+String username = (String)session.getAttribute("username");
+
+%>
+
 <input name = "username"  type="hidden" value=<%=session.getAttribute("username") %>>
 <input name = "password" type="hidden" value="<%=session.getAttribute("password") %>">
 <input name = "role" type="hidden"  value="<%=session.getAttribute("role") %>">
@@ -74,7 +83,7 @@
 			<table height="50px" width="1250px" border="0" cellpadding="0" cellspacing="0">				
 				<tr height="20px">
 					<td></td>
-					<td></td>
+					<td rowspan="2" align="right">欢迎您， <%=session.getAttribute("name") %>！</td>
 					<td colspan="4"  align="right">
 							<span id="time" style="font-size:15px;">
 								<script>
@@ -84,8 +93,8 @@
 					</td>
 				</tr>
 				<tr height="30px" align="center">
-					<td></td>
-					<td width="1000px"></td>
+					<td  width="800px"></td>
+					
 					<td width="70px"><a href="#">个人信息</a></td>
 					<td width="40px"><a href="123.jsp" target="teacher">主页</a></td>
 					<td width="40px"><a href="passwordchange.jsp">密码</a></td>
@@ -96,10 +105,10 @@
 	<div id = "daohang" style="width:100%">
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
-			<td width = "90px"> <a href="123.jsp" target = "teacher">行程安排</a></td>
-			<td width = "90px"> <a href="#" target = "teacher">教师基金</a></td>
-			<td width = "90px"> <a href="#" target = "teacher">科研成果</a></td>
-			<td width = "120px"> <a href="#" target = "teacher"><span id="nums">学生预约</span></a></td>
+			<td width = "90px"> <a href="appoint?username=<%= username %>&role=<%=role %>" target = "teacher">行程安排</a></td>
+			<td width = "90px"> <a href="money?username=<%= username %>&role=<%=role %>" target = "teacher">教师基金</a></td>
+			<td width = "90px"> <a href="keyan?username=<%= username %>&role=<%=role %>" target = "teacher">科研成果</a></td>
+			<td width = "120px"> <a href="yuyue?username=<%= username %>&role=<%=role %>" target = "teacher"><span id="nums">学生预约</span></a></td>
 			<td></td>
 		</tr>
 	</table>	

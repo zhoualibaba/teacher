@@ -27,14 +27,18 @@ public class login  extends ActionSupport{
     	String username = req.getParameter("username");
     	String password = req.getParameter("password");
     	String role = req.getParameter("role");
-    	if(role.equals("teacher")){
-    		String number = "0"; //数据库得到老师预约条数
-    		session.setAttribute("num", number);
-    	}
+    	
+    	
     	if(username.equals("1") && password.equals("3")){
     		session.setAttribute("username", username);
     		session.setAttribute("password", password);
     		session.setAttribute("role", role);
+    		String name = "XXX";
+    		session.setAttribute("name", name);
+    		if(role.equals("teacher")){
+        		String number = "0"; //数据库得到老师预约条数
+        		session.setAttribute("num", number);
+        	}
     	}else{
     		request.setAttribute("errorFlag", "1");
     		return "flase";

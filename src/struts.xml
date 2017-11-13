@@ -27,7 +27,8 @@
 
 
 <struts>   
-		<package name="strust2"  extends="struts-default">
+		<constant name="struts.devMode" value="true" />	
+		<package name="strust2"  extends="struts-default" namespace = "/">
 	
 		<action name="login" method="login_in" class="action.login">
 			<result name = "flase">
@@ -44,6 +45,54 @@
 		<action name="passwordchange" method="pwdchange" class="action.passwordchange">
 			<result>
 				login.jsp
+			</result>
+		</action>
+		
+		<action name="money" method="m" class="action.money">
+			<result>
+				money.jsp
+			</result>
+		</action>
+		
+		<action name="appoint" method="app" class="action.appoint">
+			<result>
+				appoint.jsp
+			</result>
+		</action>
+		
+		<action name="appointb" method="before" class="action.appoint">
+			<result>
+				appoint.jsp
+			</result>
+		</action>
+		
+		<action name="appointn" method="next" class="action.appoint">
+			<result>
+				appoint.jsp
+			</result>
+		</action>
+		
+		<action name="keyan" method="k" class="action.keyan">
+			<result>
+				keyan.jsp
+			</result>
+		</action>
+		
+		<action name="yuyue" method="y" class="action.yuyue">
+			<result>
+				yuyue.jsp
+			</result>
+		</action>
+		
+		<action name="jiansuo" method="js" class="action.jiansuo">
+			<result>
+				jiansuo.jsp
+			</result>
+		</action>
+		
+		<action name="yy" method="y" class="action.appoint">
+			<result>
+				appoint.jsp
 			</result>
 		</action>
 		

@@ -114,17 +114,10 @@ function intfunc(){
 	</table>
 	</form>
 	</center> 
-	</div>
-     
-    
+</div>
 </body>
 
 
 
 </html>
     
-<!-- 
-
-
-
--->

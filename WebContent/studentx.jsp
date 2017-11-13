@@ -56,16 +56,13 @@
 
 
 <% 
-String role = (String)session.getAttribute("role");
 String name = (String)session.getAttribute("name");
-String username = (String)session.getAttribute("username");
+String username = (String)request.getParameter("username");
+String teachername = (String)request.getParameter("teachername");
 %>
 
 <input name = "username"  type="hidden" value=<%=session.getAttribute("username") %>>
-<input name = "password" type="hidden" value="<%=session.getAttribute("password") %>">
-<input name = "role" type="hidden"  value="<%=session.getAttribute("role") %>">
 <input name = "errorFlag" type="hidden"  value="100">
-
 
 <div >
 	<div id="main">
@@ -94,14 +91,15 @@ String username = (String)session.getAttribute("username");
 	<div id = "daohang" style="width:100%">
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
-			<td width = "120px"> <a href="jiansuo?username=<%=username %>&Er=0" target = "student">教师检索</a></td>
-			<td width = "120px"> <a href="tuijian.jsp" target = "student">教师推荐</a></td>
-			<td width = "120px"> <a href="yuyue" target = "student">我的预约</a></td>
+			<td width = "120px"> <a href="yuyue?username=<%= username %>&role=student" target = "js">教师信息</a></td>
+			<td width = "90px"> <a href="appoint?username=<%= username %>&role=student" target = "js">行程安排</a></td>
+			<td width = "90px"> <a href="money?username=<%= username %>&role=student" target = "js">教师基金</a></td>
+			<td width = "90px"> <a href="keyan?username=<%= username %>&role=student" target = "js">科研成果</a></td>
 			<td></td>
 		</tr>
 	</table>	
 	</div>
 </div>
-<iframe allowtransparency="true"   id="defaulIframePage" name="student"  frameborder="0" scrolling="no" width="100%" onload="defaulIframePageHeight()"></iframe>
+<iframe allowtransparency="true"   id="defaulIframePage" name="js"  frameborder="0" scrolling="no" width="100%" onload="defaulIframePageHeight()"></iframe>
 </body>
 </html>
