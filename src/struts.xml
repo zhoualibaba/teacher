@@ -84,6 +84,13 @@
 			</result>
 		</action>
 		
+		<action name="tuijian" method="t" class="action.tuijian">
+			<result>
+				tuijian.jsp
+			</result>
+		</action>
+		
+		
 		<action name="jiansuo" method="js" class="action.jiansuo">
 			<result>
 				jiansuo.jsp

@@ -238,4 +238,61 @@ public class sqlconnect {
 		}
 		return jiansuolist;
 	}
+	
+	public ArrayList<ArrayList<String>> tuijian(String username,String role,int a){
+		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
+
+		int ID = getID(username, "student");
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Student");
+
+			while(rs.next()){
+				if(rs.getInt("ID") == ID){
+					String A = rs.getString("院系");
+					String B = rs.getString("年级");
+					if(a==0){
+						jiansuolist = tj(A);
+					}else{
+						jiansuolist = tj(B);
+					}
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return jiansuolist;
+	}
+	
+	public ArrayList<ArrayList<String>> tj(String A) {
+		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				if((rs.getString("院系").equals(A)) || rs.getString("年级").equals(A)){
+					ArrayList<String> ml = new ArrayList<String> ();				
+					
+					int ID = rs.getInt("ID");
+					ml.add(getname(ID,"teacher"));
+					ml.add(rs.getString("院系"));
+					ml.add(rs.getString("major"));
+					ml.add(rs.getString("职位"));
+					ml.add(rs.getString("sex"));
+					ml.add(getusername(ID,"teacher"));
+
+					jiansuolist.add(ml);
+				} 
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return jiansuolist;
+	}
 }
