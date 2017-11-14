@@ -34,5 +34,32 @@ public class keyan  extends ActionSupport{
    		return SUCCESS;
     }
     
+    public String ck(){
+       	ArrayList<ArrayList<String>> keyanlist = sqlcon.keyan(username, role);
+       	session.setAttribute("username", username);
+   		session.setAttribute("role", role);
+   		session.setAttribute("keyanlist", keyanlist);
+   		return SUCCESS;
+    }
+    
+    public String dk(){
+    	String ID = req.getParameter("ID");
+    	sqlcon.del(ID,"Keyan");
+       	ArrayList<ArrayList<String>> keyanlist = sqlcon.keyan(username, role);
+       	session.setAttribute("username", username);
+   		session.setAttribute("role", role);
+   		session.setAttribute("keyanlist", keyanlist);
+   		return SUCCESS;
+    }
+    
+    public String tk(){
+    	String what = req.getParameter("what");
+    	sqlcon.tk(username, what);
+       	ArrayList<ArrayList<String>> keyanlist = sqlcon.keyan(username, role);
+       	session.setAttribute("username", username);
+   		session.setAttribute("role", role);
+   		session.setAttribute("keyanlist", keyanlist);
+   		return SUCCESS;
+    }
     
 }

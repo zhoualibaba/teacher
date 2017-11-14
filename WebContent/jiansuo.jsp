@@ -66,8 +66,10 @@ ArrayList<ArrayList<String>> jiansuolist = (ArrayList<ArrayList<String>>)session
 		<td  width = 100px>
 			<select name="major" style="width:100px;height:30px">
 							<option value="ALL" ${B=="ALL"?'selected':''}>不限</option>
-							<option value="A" ${B=="A"?'selected':''}>A</option>
-							<option value="B" ${B=="B"?'selected':''}>B</option>
+							<option value="计算机A" ${B=="计算机A"?'selected':''}>计算机A</option>
+							<option value="计算机B" ${B=="计算机B"?'selected':''}>计算机B</option>
+							<option value="生物A" ${B=="生物A"?'selected':''}>生物A</option>
+							<option value="生物B" ${B=="生物B"?'selected':''}>生物B</option>
 							
 			</select>
 		</td>	

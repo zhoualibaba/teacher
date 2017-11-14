@@ -37,6 +37,31 @@ public class money  extends ActionSupport{
 		session.setAttribute("moneylist", moneylist);
 		return SUCCESS;
     }
+    public String cm(){
+    	ArrayList<ArrayList<String>> moneylist = sqlcon.money(username, role);
+    	session.setAttribute("username", username);
+		session.setAttribute("role", role);
+		session.setAttribute("moneylist", moneylist);
+		return SUCCESS;
+    }
+    public String dm(){
+    	String ID = req.getParameter("ID");
+    	sqlcon.del(ID, "Money");
+    	ArrayList<ArrayList<String>> moneylist = sqlcon.money(username, role);
+    	session.setAttribute("username", username);
+		session.setAttribute("role", role);
+		session.setAttribute("moneylist", moneylist);
+		return SUCCESS;
+    }
     
-    
+    public String tm(){
+    	String what = req.getParameter("what");
+    	String money = req.getParameter("money");
+    	sqlcon.tm(username, what, money);
+    	ArrayList<ArrayList<String>> moneylist = sqlcon.money(username, role);
+    	session.setAttribute("username", username);
+		session.setAttribute("role", role);
+		session.setAttribute("moneylist", moneylist);
+		return SUCCESS;
+    }
 }

@@ -34,10 +34,11 @@
 <% 
 String role = (String)session.getAttribute("role");
 String username = (String)session.getAttribute("username");
+
 ArrayList<ArrayList<String>> moneylist = (ArrayList<ArrayList<String>>)session.getAttribute("moneylist");
 
 %>
-
+<form action = "tm">
 <input name = "username"  type="hidden" value=<%=session.getAttribute("username") %>>
 <input name = "role" type="hidden"  value="<%=session.getAttribute("role") %>">
 <br><br><br><br>
@@ -56,9 +57,9 @@ for(int i = 0; i < moneylist.size(); i++){
 			<%
 				if(role.equals("teacher")){
 			%>
-			<td width = 50px><a href = "changemoney?id=<%= ID %>&role=<%= role%>&username=<%=username %>">更改</a></td>
-			<td width ="10px"></td>
-			<td width = 50px><a href = "delmoney?id=<%= ID %>&role=<%= role%>&username=<%=username %>">删除</a></td>
+			<!-- <td width = 50px><a href = "changemoney?ID=<%=ID%>&username=<%= username %>&role=teacher">更改</a></td> -->
+			<td width ="60px"></td>
+			<td width = 50px><a href = "delmoney?ID=<%=ID%>&username=<%= username %>&role=teacher">删除</a></td>
 					<%
 				}
 			%>
@@ -70,14 +71,21 @@ for(int i = 0; i < moneylist.size(); i++){
 				if(role.equals("teacher")){
 	%>
 <tr height = 100px></tr>
-<tr>
-		<td colspan="6"><button type="submit" onclick = "return check()" style="width:560px;height:30px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">增加</button></td>
-</tr>
+<tr align = "center">
+			<td width = 50px align = "left"></td>
+			<td width = 200px><input  name = "what" style="width:180px;height:30px" placeholder="添加新事件" type="text" value=""/></td>
+			<td width = 200px><input  name = "money" style="width:190px;height:30px" placeholder="添加新基金" type="text" value=""/></td>
+		
+			<td width ="10px"></td>
+			<td width = 100px><button type="submit"  style="width:100px;height:30px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">增加</button></td>
+		
+		</tr>
+
 	<%
 				}
 	%>
 </table>
-
+</form>
 <br><br><br><br><br><br><br>
 </body>
 </html>

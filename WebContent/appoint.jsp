@@ -129,7 +129,7 @@ for(int i = 0; i < 8; i ++){
 			%><td><%=what %></td><%
 		}else{
 			if(role.equals("teacher")){
-				%><td bgcolor="#b7d3df"><a href = "#" title = "点击添加此时间的行程安排">添加</a></td><%
+				%><td bgcolor="#b7d3df"><a href = "ty.jsp?n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>&i=<%=i + 1%>&j=<%=j + 1%>" target = "teacher" title = "点击添加此时间的行程安排">添加</a></td><%
 			}else{
 				%><td bgcolor="#b7d3df"><a href = "yy?i=<%=i + 1%>&j=<%=j + 1%>&n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>" onclick ="check()">可预约</a></td><%
 			}

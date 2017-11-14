@@ -38,7 +38,9 @@ public class login  extends ActionSupport{
     		session.setAttribute("password", password);
     		session.setAttribute("role", role);
     		if(role.equals("teacher")){
-        		String number = "0"; //数据库得到老师预约条数
+    		   	
+    	       		int number = sqlcon.getnum(username);
+    	       	
         		session.setAttribute("num", number);
         	}
     	}else{

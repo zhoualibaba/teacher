@@ -77,6 +77,16 @@ public class appoint  extends ActionSupport{
     	return SUCCESS;
     }
     
+    public String ty(){
+    	String i = req.getParameter("i");
+    	String j = req.getParameter("j");
+    	String n = req.getParameter("n");
+    	String what = req.getParameter("what");
+    	sqlcon.ty(Integer.valueOf(i), Integer.valueOf(j), Integer.valueOf(n), username,what);
+    	a(Integer.valueOf(n));
+    	return SUCCESS;
+    }
+    
     public void a(int n ){
     
     	Date date = null;

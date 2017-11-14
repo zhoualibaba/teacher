@@ -32,6 +32,19 @@
     margin-top:-10px;  
     line-height:50px;  
 }  
+
+#main a{  
+    
+    text-decoration:none;  
+    color:#000000;  
+    display:block;  
+    text-align:center;  
+}  
+#main a:hover{  
+    background-color:#b7d3df;  
+    color:#FFFFFF;  
+
+}  
 </style>
 <script type="text/javascript">
 	function relogin(){
@@ -90,7 +103,7 @@ String teachername = (String)request.getParameter("teachername");
 	<div id = "daohang" style="width:100%">
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
-			<td width = "120px"> <a href="yuyue?username=<%= teachername %>&role=student" target = "js">教师信息</a></td>
+			<td width = "120px"> <a href="tg?username=<%= teachername %>&role=teacher" target = "js">教师信息</a></td>
 			<td width = "90px"> <a href="appoint?username=<%= teachername %>&role=student&sname=<%=username %>" target = "js">行程安排</a></td>
 			<td width = "90px"> <a href="money?username=<%= teachername %>&role=student" target = "js">教师基金</a></td>
 			<td width = "90px"> <a href="keyan?username=<%= teachername %>&role=student" target = "js">科研成果</a></td>

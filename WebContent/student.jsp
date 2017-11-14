@@ -32,6 +32,20 @@
     margin-top:-10px;  
     line-height:50px;  
 }  
+
+
+#main a{  
+    
+    text-decoration:none;  
+    color:#000000;  
+    display:block;  
+    text-align:center;  
+}  
+#main a:hover{  
+    background-color:#b7d3df;  
+    color:#FFFFFF;  
+
+} 
 </style>
 <script type="text/javascript">
 	function relogin(){
@@ -83,8 +97,8 @@ String username = (String)session.getAttribute("username");
 				</tr>
 				<tr height="30px" align="center">
 					<td  width="800px"></td>
-			
-					<td width="70px"><a href="#">个人信息</a></td>
+			 
+					<td width="70px"><a href="tg?username=<%= username %>&role=student" target = "student">个人信息</a></td>
 					<td width="40px"><a href="123.jsp" target="student">主页</a></td>
 					<td width="40px"><a href="passwordchange.jsp">密码</a></td>
 					<td width="40px"><a href="login.jsp" onclick="return relogin()">退出</a></td>

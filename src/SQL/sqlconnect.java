@@ -21,7 +21,7 @@ public class sqlconnect {
 			e.printStackTrace();
 		}
 		try {
-		    connect = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/teacher","root","wuzipeng");
+		    connect = DriverManager.getConnection("jdbc:mysql://w.rdc.sae.sina.com.cn:3306/app_teacher","45nw00m0ml","30kxh520l2mi55wk1h0lkm0w151zyk3kwiihm0y5");
 
 	           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
 		}
@@ -331,24 +331,43 @@ public class sqlconnect {
 		int tid = getID(teachername,"teacher");
 		int sid = getID(studentname,"student");
 		String sname = getname(sid,"student");
+		
 		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from yuyue");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+		
 			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into yuyue(ID,studentID,teacherID,"
 																					+ "time) values(?,?,?,?)");
-			ps.setInt(1,0);
+			ps.setInt(1,x + 1);
 			ps.setInt(2, sid);
 			ps.setInt(3, tid);
 			ps.setString(4, "第" + n + "周的周" + j + "第" + i + "节课");
 			ps.executeUpdate();
 			ps.close();
+			rs.close();
+			statement.close();
 			connect.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		
 		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from appoint");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
 			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into appoint(ID,teacherID,n,i,j,"
 																					+ "what) values(?,?,?,?,?,?)");
-			ps.setInt(1,0);
+			ps.setInt(1,x + 1);
 			ps.setInt(2, tid);
 			ps.setInt(3, n);
 			ps.setInt(4, i);
@@ -356,10 +375,218 @@ public class sqlconnect {
 			ps.setString(6, sname + "已预约");
 			ps.executeUpdate();
 			ps.close();
+			rs.close();
+			statement.close();
 			connect.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		
+		try{
+			
+				int x = 0;
+				Statement statement =getConnection().createStatement();
+				ResultSet rs = statement.executeQuery("select * from Teacher");
+				while(rs.next()){
+					if(rs.getInt("ID") == tid){
+						x = rs.getInt("Num") + 1;
+					}
+				}
+			
+			String sql = "update Teacher set Num =" + "'" + x + "'"+ " where username = " + "'" +teachername + "'";
+		
+			statement.executeUpdate(sql);
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
+	
+	public void del(String ID,String X){
+		String sql = "delete from " + X + " where ID ='" + ID + "'";
+		try {
+			PreparedStatement ps = (PreparedStatement) getConnection().prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+            connect.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void ty(int i , int j ,int n ,String teachername, String what) {
+		int tid = getID(teachername,"teacher");
+
+
+		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from appoint");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into appoint(ID,teacherID,n,i,j,"
+																					+ "what) values(?,?,?,?,?,?)");
+			ps.setInt(1,x + 1);
+			ps.setInt(2, tid);
+			ps.setInt(3, n);
+			ps.setInt(4, i);
+			ps.setInt(5, j);
+			ps.setString(6, what);
+			ps.executeUpdate();
+			ps.close();
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void tm(String username,String what,String money) {
+		int ID = getID(username,"teacher");
+		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Money");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Money(ID,teacherID,what,money) values(?,?,?,?)");
+			ps.setInt(1,x + 1);
+			ps.setInt(2, ID);
+			ps.setString(3, what);
+			ps.setString(4, money);
+			ps.executeUpdate();
+			ps.close();
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void tk(String username,String what) {
+		int ID = getID(username,"teacher");
+		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Keyan");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Keyan(ID,teacherID,what) values(?,?,?)");
+			ps.setInt(1,x + 1);
+			ps.setInt(2, ID);
+			ps.setString(3, what);
+			ps.executeUpdate();
+			ps.close();
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<String> g(String username, String role){
+		int id = getID(username, role);
+		
+		ArrayList<String> keyanlist = new ArrayList<String> ();
+		try{
+			Statement statement =getConnection().createStatement();
+		
+			if(role.equals("teacher")){
+				
+				ResultSet rs = statement.executeQuery("select * from Teacher");
+				while(rs.next()){
+					if(id == rs.getInt("ID")){
+						keyanlist.add(rs.getString("name"));
+						keyanlist.add(rs.getString("sex"));
+						keyanlist.add(rs.getString("tel"));
+						keyanlist.add(rs.getString("院系"));
+						keyanlist.add(rs.getString("country"));
+						keyanlist.add(rs.getString("民族"));
+						keyanlist.add(rs.getString("职位"));
+						keyanlist.add(rs.getString("社会面貌"));
+						keyanlist.add(rs.getString("major"));
+						
+
+					}
+				}
+				rs.close();
+				
+			}
+			else{
+				ResultSet rs = statement.executeQuery("select * from Student");
+
+				while(rs.next()){
+					if(id == rs.getInt("ID")){
+						keyanlist.add(rs.getString("name"));
+						keyanlist.add(rs.getString("sex"));
+						keyanlist.add(rs.getString("tel"));
+						keyanlist.add(rs.getString("major"));
+						keyanlist.add(rs.getString("country"));
+						keyanlist.add(rs.getString("出生日期"));
+						keyanlist.add(rs.getString("入学日期"));
+						keyanlist.add(rs.getString("民族"));
+						keyanlist.add(rs.getString("年级"));
+						keyanlist.add(rs.getString("班级"));
+						keyanlist.add(rs.getString("院系"));
+					}
+				}
+				rs.close();
+			}
+			
+			
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return keyanlist;
+	}
+
+	public int getnum(String username) {
+		int num = 0;
+		int id = getID(username,"teacher");
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+
+			while(rs.next()){
+				if(id == rs.getInt("ID")){
+					num = rs.getInt("Num");
+				}
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return num;
+	}
+
+	public void changenum(String username) {
+		try{
+			String sql = "update Teacher set Num =" + "'" + 0 + "'"+ " where username = " + "'" +username + "'";
+			Statement statement =getConnection().createStatement();
+			statement.executeUpdate(sql);
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
 }

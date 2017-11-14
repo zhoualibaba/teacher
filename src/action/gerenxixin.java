@@ -1,8 +1,7 @@
 package action;
 
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import SQL.sqlconnect;
 
-
-public class yuyue  extends ActionSupport{
+public class gerenxixin   extends ActionSupport{
 	/**
 	 * 
 	 */
@@ -23,20 +21,16 @@ public class yuyue  extends ActionSupport{
 	ServletRequest request = ServletActionContext.getRequest();
     HttpServletRequest req = (HttpServletRequest) request;
     HttpSession session = req.getSession();
-
     String username = req.getParameter("username");
-   	String role = req.getParameter("role");
-   	static sqlconnect sqlcon = new sqlconnect();
-   	
-    public String y(){
-       	ArrayList<ArrayList<String>> yuyuelist = sqlcon.yuyue(username, role);
-       	if(role.equals("teacher")){
-       		sqlcon.changenum(username);
-       	}
-       	session.setAttribute("username", username);
-   		session.setAttribute("role", role);
-   		session.setAttribute("yuyuelist", yuyuelist);
-   		return SUCCESS;
-    }
-    
+	String role = req.getParameter("role");
+	
+	ArrayList<String> ddd = new ArrayList<String>();
+	static sqlconnect sqlcon = new sqlconnect();
+	 public String tg(){
+	    	
+		 	ddd = sqlcon.g(username, role);
+			session.setAttribute("ddd", ddd);
+
+	    	return role;
+	    }
 }

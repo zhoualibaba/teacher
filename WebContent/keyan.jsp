@@ -37,7 +37,7 @@ String username = (String)session.getAttribute("username");
 ArrayList<ArrayList<String>> keyanlist = (ArrayList<ArrayList<String>>)session.getAttribute("keyanlist");
 
 %>
-
+<form action = "tk">
 <input name = "username"  type="hidden" value=<%=session.getAttribute("username") %>>
 <input name = "role" type="hidden"  value="<%=session.getAttribute("role") %>">
 <br><br><br><br>
@@ -54,9 +54,10 @@ for(int i = 0; i < keyanlist.size(); i++){
 			<%
 				if(role.equals("teacher")){
 			%>
-			<td width = 50px><a href = "changekeyan?id=<%= ID %>&role=<%= role%>&username=<%=username %>">更改</a></td>
-			<td width ="10px"></td>
-			<td width = 50px><a href = "delkeyan?id=<%= ID %>&role=<%= role%>&username=<%=username %>">删除</a></td>
+			<!-- <td width = 50px><a href = "changekeyan?ID=<%=ID%>">更改</a></td> -->
+			
+			<td width ="60px"></td>
+			<td width = 50px><a href = "delkeyan?ID=<%=ID%>&username=<%= username %>&role=teacher">删除</a></td>
 			<%
 				}
 			%>
@@ -65,17 +66,24 @@ for(int i = 0; i < keyanlist.size(); i++){
 	<%
 }
 
-				if(role.equals("teacher")){
-	%>
+if(role.equals("teacher")){
+%>
 <tr height = 100px></tr>
-<tr>
-		<td colspan="5"><button type="submit" onclick = "return check()" style="width:560px;height:30px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">增加</button></td>
-</tr>
-	<%
-				}
-	%>
-</table>
+<tr align = "center">
+		<td width = 50px align = "left"></td>
+		
+		<td width = 400px><input  name = "what" style="width:400px;height:30px" placeholder="添加新科研项目" type="text" value=""/></td>
+	
+		<td width ="10px"></td>
+		<td width = 100px><button type="submit"  style="width:100px;height:30px;border:none;background-color:#4dc86f" onmouseover="this.style.backgroundColor='#53de79'" onmouseout="this.style.backgroundColor='#4dc86f'">增加</button></td>
+	
+	</tr>
 
+<%
+			}
+%>
+</table>
+</form>
 <br><br><br><br><br><br><br>
 </body>
 </html>
