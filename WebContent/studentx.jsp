@@ -45,6 +45,13 @@
     color:#FFFFFF;  
 
 }  
+body
+{
+background-image:url(1.jpg) ;
+background-size:100%;
+margin:0px;
+padding:0px;
+}
 </style>
 <script type="text/javascript">
 	function relogin(){

@@ -12,6 +12,15 @@
 
  
 
+body
+{
+background-image:url(1.jpg) ;
+background-size:100%;
+margin:0px;
+padding:0px;
+}
+
+
 #daohang a{  
     
     text-decoration:none;  

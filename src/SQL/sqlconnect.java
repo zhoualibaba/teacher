@@ -21,7 +21,7 @@ public class sqlconnect {
 			e.printStackTrace();
 		}
 		try {
-		    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/teacher","root","wuzipeng");
+		    connect = DriverManager.getConnection("jdbc:mysql://w.rdc.sae.sina.com.cn:3306/app_teacher","45nw00m0ml","30kxh520l2mi55wk1h0lkm0w151zyk3kwiihm0y5");
 
 	           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
 		}
