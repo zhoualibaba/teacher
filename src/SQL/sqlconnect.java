@@ -21,7 +21,7 @@ public class sqlconnect {
 			e.printStackTrace();
 		}
 		try {
-		    connect = DriverManager.getConnection("jdbc:mysql://w.rdc.sae.sina.com.cn:3306/app_teacher","45nw00m0ml","30kxh520l2mi55wk1h0lkm0w151zyk3kwiihm0y5");
+		    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/teacher","root","wuzipeng");
 
 	           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
 		}
@@ -335,13 +335,13 @@ public class sqlconnect {
 		try{
 			int x = 0;
 			Statement statement =getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from yuyue");
+			ResultSet rs = statement.executeQuery("select * from Yuyue");
 			while(rs.next()){
 				int y = rs.getInt("ID");
 				if(x < y) x = y;
 			}
 		
-			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into yuyue(ID,studentID,teacherID,"
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Yuyue(ID,studentID,teacherID,"
 																					+ "time) values(?,?,?,?)");
 			ps.setInt(1,x + 1);
 			ps.setInt(2, sid);

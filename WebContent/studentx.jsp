@@ -81,7 +81,7 @@ String teachername = (String)request.getParameter("teachername");
 			<table height="50px" width="1250px" border="0" cellpadding="0" cellspacing="0">				
 				<tr height="20px">
 					<td></td>
-					<td rowspan="2" align="right">欢迎您， <%=session.getAttribute("name") %>！</td>
+					<td rowspan="2" align="right">欢迎您!</td>
 					<td colspan="4"  align="right">
 							<span id="time" style="font-size:15px;">
 								<script>

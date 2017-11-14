@@ -39,6 +39,7 @@ public class jiansuo  extends ActionSupport{
      	String D = "ALL";
     	
      	session.setAttribute("username",username);
+     
     	if(Er.equals("0")){
 
     	}else{ 
@@ -49,15 +50,7 @@ public class jiansuo  extends ActionSupport{
         	 C = req.getParameter("zhiwei");
          	 D = req.getParameter("sex");
         	
-         	 try {
- 				A = new String(A.getBytes("8859_1"), "utf8");
- 				B = new String(B.getBytes("8859_1"), "utf8");
- 				C = new String(C.getBytes("8859_1"), "utf8");
- 				D = new String(D.getBytes("8859_1"), "utf8");
- 			} catch (UnsupportedEncodingException e) {
- 				// TODO Auto-generated catch block
- 				e.printStackTrace();
- 			}
+         	
          	ArrayList<ArrayList<String>> jiansuolist = sqlcon.jiansuo(A,B,C,D);
          	session.setAttribute("j", jiansuolist);
 
