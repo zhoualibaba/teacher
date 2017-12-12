@@ -29,13 +29,11 @@ public class tuijian  extends ActionSupport{
    	static sqlconnect sqlcon = new sqlconnect();
    	
     public String t(){
-       	ArrayList<ArrayList<String>> tuijianlist = sqlcon.tuijian(username, role,0);
-       	ArrayList<ArrayList<String>> tl = sqlcon.tuijian(username, role,1);
+       	ArrayList<ArrayList<String>> tuijianlist = sqlcon.tuijian(username, role);
 
        	session.setAttribute("username", username);
    		session.setAttribute("role", role);
    		session.setAttribute("tuijianlist", tuijianlist);
-   		session.setAttribute("tl", tl);
 
    		return SUCCESS;
     }

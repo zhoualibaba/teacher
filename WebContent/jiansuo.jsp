@@ -41,7 +41,9 @@ String D = (String)session.getAttribute("D");
 String Er = (String)session.getAttribute("Er");
 
 ArrayList<ArrayList<String>> jiansuolist = (ArrayList<ArrayList<String>>)session.getAttribute("j");
-
+ArrayList<ArrayList<String>> jsl = (ArrayList<ArrayList<String>>)session.getAttribute("jsl");
+ArrayList<String> zl = jsl.get(1);	
+ArrayList<String> yl = jsl.get(0);
 %>
 
 <br>
@@ -54,44 +56,47 @@ ArrayList<ArrayList<String>> jiansuolist = (ArrayList<ArrayList<String>>)session
 		<td width = 100px>院系</td>
 		<td  width = 100px>
 		
-			<select name="yuanxi" style="width:100px;height:30px">
+			<select name="yuanxi" style="width:150px;height:30px">
 							<option value="ALL" ${A=="ALL"?'selected':''}>不限</option>
-							<option value="计算机" ${A=="计算机"?'selected':''}>计算机</option>
-							<option value="生物" ${A=="生物"?'selected':''}>生物</option>
+							<%
+								for(int i = 0 ; i < yl.size() ; i ++){
+									String y = yl.get(i);
+									%>
+									
+									<option value="<%=y %>" ><%= y%></option>
+									<%
+								}
+							
+							%>
+							
 			</select>
 		</td>	
 		<td width = 20px></td>
 		
 		<td  width = 100px>专业</td>
 		<td  width = 100px>
-			<select name="major" style="width:100px;height:30px">
-							<option value="ALL" ${B=="ALL"?'selected':''}>不限</option>
-							<option value="计算机A" ${B=="计算机A"?'selected':''}>计算机A</option>
-							<option value="计算机B" ${B=="计算机B"?'selected':''}>计算机B</option>
-							<option value="生物A" ${B=="生物A"?'selected':''}>生物A</option>
-							<option value="生物B" ${B=="生物B"?'selected':''}>生物B</option>
+			<select name="major" style="width:150px;height:30px">
+							<option value="ALL">不限</option>
+							<%
+								for(int i = 0 ; i < zl.size() ; i ++){
+									String y = zl.get(i);
+									%>
+									
+									<option value="<%=y %>" ><%= y%></option>
+									<%
+								}
+							
+							%>
 							
 			</select>
 		</td>	
 		<td width = 20px></td>
 		
-		<td  width = 100px>职位</td>
-		<td  width = 100px>
-			<select name="zhiwei" style="width:100px;height:30px">
-							<option value="ALL" ${C=="ALL"?'selected':''}>不限</option>
-							<option value="教授" ${C=="教授"?'selected':''}>教授</option>
-							<option value="讲师" ${C=="讲师"?'selected':''}>讲师</option>
-			</select>
-		</td>	
-		<td width = 20px></td>
 		
-		<td  width = 100px>性别</td>
-		<td  width = 100px>
-			<select name="sex" style="width:100px;height:30px">
-							<option value="ALL" ${D=="ALL"?'selected':''}>不限</option>
-							<option value="男" ${D=="男"?'selected':''}>男</option>
-							<option value="女" ${D=="女"?'selected':''}>女</option>
-			</select>
+		
+		<td  width = 100px>姓名</td>
+		<td  width = 100px><input name = "name" style="width:150px;height:30px" placeholder="教师姓名"  type="text" value=""/>
+			
 		</td>	
 		<td width = 20px></td>
 
@@ -110,10 +115,9 @@ ArrayList<ArrayList<String>> jiansuolist = (ArrayList<ArrayList<String>>)session
 			<td></td>
 			<td width = 50px align = "left"></td>
 			<td width = 100px>姓名</td>
-			<td width = 100px>院系</td>
-			<td width = 100px>专业</td>
-			<td width = 100px>职位</td>
-			<td width = 100px>性别</td>
+			<td width = 200px>院系</td>
+			<td width = 200px>专业</td>
+			<td width = 100px>预约</td>
 			<td></td>
 
 		</tr>
@@ -123,20 +127,19 @@ ArrayList<ArrayList<String>> jiansuolist = (ArrayList<ArrayList<String>>)session
 				String name = ml.get(0);
 				String yuanxi = ml.get(1);
 				String major = ml.get(2);
-				String zhiwei = ml.get(3);
-				String sex = ml.get(4);
-				String tname = ml.get(5);
+				
+				String tname = ml.get(3);
+				String url = ml.get(4);
 				%>
 					<tr align = "center"  height = 40px>
 						<td></td>
 						<td width = 50px align = "left"><%=i+1 %></td>
 			
 			
-						<td ><a href = "studentx.jsp?username=<%= username%>&teachername=<%=tname%>" title = "点击查看教师具体信息" target = "#"><%=name %></a></td>
+						<td ><a href = <%=url %> title = "点击查看教师具体信息" target = "#"><%=name %></a></td>
 						<td ><%=yuanxi %></td>
 						<td ><%=major %></td>
-						<td ><%=zhiwei %></td>
-						<td ><%=sex %></td>
+						<td ><a href="studentx.jsp?username=<%= username%>&teachername=<%=tname%>" target = "#">预约</a></td>
 						<td></td>
 					</tr>
 				<%

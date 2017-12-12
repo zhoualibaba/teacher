@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.sql.*;
-
-
+import pa.model;
+import pa.chong;
 public class sqlconnect {
 	public static Connection connect;  
 	public static void drive() {
@@ -21,7 +21,7 @@ public class sqlconnect {
 			e.printStackTrace();
 		}
 		try {
-		    connect = DriverManager.getConnection("jdbc:mysql://w.rdc.sae.sina.com.cn:3306/app_teacher","45nw00m0ml","30kxh520l2mi55wk1h0lkm0w151zyk3kwiihm0y5");
+		    connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/teacher","root","wuzipeng");
 
 	           //连接URL为   jdbc:mysql//服务器地址/数据库名  ，后面的2个参数分别是登陆用户名和密码
 		}
@@ -32,12 +32,31 @@ public class sqlconnect {
 		return connect;
 	}
 	
+	public int l(){
+		int x = 0;
+
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+			
+		}catch (SQLException e){
+				e.printStackTrace();
+			}
+		
+			return x;
+	}
+	
+	
 	public String login(String username, String role,String password){
+		
 		String name = "";
 		try{
 			Statement statement =getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from Password");
-
 			while(rs.next()){
 				if(username.equals(rs.getString("username")) && role.equals(rs.getString("role")) && password.equals(rs.getString("password")) ){
 					 name = rs.getString("name");
@@ -105,6 +124,28 @@ public class sqlconnect {
 		
 	}
 	
+	public String geturl(String username){
+		int ID = getID(username,"teacher");
+		String url = "";
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+
+			while(rs.next()){
+				if(ID == rs.getInt("ID")){
+					url = rs.getString("url");
+				} 
+			}
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return url;
+		
+	}
+	
 	public String getusername(int ID, String role){
 		String name = null;
 		try{
@@ -126,57 +167,8 @@ public class sqlconnect {
 		
 	}
 	
-	public ArrayList<ArrayList<String>> money(String username, String role){
-		int id = getID(username, "teacher");
-		
-		ArrayList<ArrayList<String>> moneylist = new ArrayList<ArrayList<String>> ();
-		try{
-			Statement statement =getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from Money");
-
-			while(rs.next()){
-				if(id == rs.getInt("teacherID")){
-					ArrayList<String> ml = new ArrayList<String> ();				
-					ml.add(String.valueOf(rs.getInt("ID")));
-					ml.add(rs.getString("what"));
-					ml.add(rs.getString("money"));
-					moneylist.add(ml);
-				}
-			}
-			rs.close();
-			statement.close();
-			connect.close();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return moneylist;
-	}
 	
-	public ArrayList<ArrayList<String>> keyan(String username, String role){
-		int id = getID(username, "teacher");
-		
-		ArrayList<ArrayList<String>> keyanlist = new ArrayList<ArrayList<String>> ();
-		try{
-			Statement statement =getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from Keyan");
-
-			while(rs.next()){
-				if(id == rs.getInt("teacherID")){
-					ArrayList<String> ml = new ArrayList<String> ();				
-					ml.add(String.valueOf(rs.getInt("ID")));
-					ml.add(rs.getString("what"));
-					keyanlist.add(ml);
-				}
-			}
-			rs.close();
-			statement.close();
-			connect.close();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return keyanlist;
-	}
-
+	
 	public ArrayList<ArrayList<String>> yuyue(String username, String role) {
 		int id = getID(username,role);
 		ArrayList<ArrayList<String>> yuyuelist = new ArrayList<ArrayList<String>> ();
@@ -193,6 +185,7 @@ public class sqlconnect {
 					ml.add(getname(studentID,"student"));
 					ml.add(getname(teacherID,"teacher"));
 					ml.add(rs.getString("time"));
+					ml.add(rs.getString("n"));
 					yuyuelist.add(ml);
 				}
 			}
@@ -204,26 +197,68 @@ public class sqlconnect {
 		}
 		return yuyuelist;
 	}
-
-	public ArrayList<ArrayList<String>> jiansuo(String A, String B, String C, String D) {
+	public ArrayList<ArrayList<String>> zhuanye(){
+		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
+		try{
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			ArrayList<String> zl = new ArrayList<String> ();	
+			ArrayList<String> yl = new ArrayList<String> ();	
+			while(rs.next()){
+				String z = rs.getString("major");
+				String y = rs.getString("院系");
+				if(zl.contains(z)){
+					
+				}else zl.add(z);
+				
+				if(yl.contains(y)){
+					
+				}else yl.add(y);
+			} 
+			jiansuolist.add(yl);
+			jiansuolist.add(zl);
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return jiansuolist;
+		
+	}
+	
+	public ArrayList<ArrayList<String>> jiansuo(String A, String B,String C) {
 		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
 		try{
 			Statement statement =getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from Teacher");
 			while(rs.next()){
-				if((rs.getString("院系").equals(A) || "ALL".equals(A)) && (rs.getString("职位").equals(C) || "ALL".equals(C)) && (rs.getString("major").equals(B) || "ALL".equals(B)) && (rs.getString("sex").equals(D) || "ALL".equals(D))){
-					ArrayList<String> ml = new ArrayList<String> ();				
-					
-					int ID = rs.getInt("ID");
-					ml.add(getname(ID,"teacher"));
-					ml.add(rs.getString("院系"));
-					ml.add(rs.getString("major"));
-					ml.add(rs.getString("职位"));
-					ml.add(rs.getString("sex"));
-					ml.add(getusername(ID,"teacher"));
-
-					jiansuolist.add(ml);
-				} 
+				if(C.equals("")){
+					if((rs.getString("院系").equals(A) || "ALL".equals(A)) && (rs.getString("major").equals(B) || "ALL".equals(B)) ){
+						ArrayList<String> ml = new ArrayList<String> ();				
+						
+						int ID = rs.getInt("ID");
+						ml.add(getname(ID,"teacher"));
+						ml.add(rs.getString("院系"));
+						ml.add(rs.getString("major"));
+						ml.add(getusername(ID,"teacher"));
+						ml.add(rs.getString("url"));
+						jiansuolist.add(ml);
+					} 
+				}else{
+					if(rs.getString("name").equals(C)){
+		                   ArrayList<String> ml = new ArrayList<String> ();				
+							
+							int ID = rs.getInt("ID");
+							ml.add(getname(ID,"teacher"));
+							ml.add(rs.getString("院系"));
+							ml.add(rs.getString("major"));
+							ml.add(getusername(ID,"teacher"));
+							ml.add(rs.getString("url"));
+							jiansuolist.add(ml);
+						}
+				}
+				
 			}
 			rs.close();
 			statement.close();
@@ -234,7 +269,7 @@ public class sqlconnect {
 		return jiansuolist;
 	}
 	
-	public ArrayList<ArrayList<String>> tuijian(String username,String role,int a){
+	public ArrayList<ArrayList<String>> tuijian(String username,String role){
 		ArrayList<ArrayList<String>> jiansuolist = new ArrayList<ArrayList<String>> ();
 
 		int ID = getID(username, "student");
@@ -245,12 +280,9 @@ public class sqlconnect {
 			while(rs.next()){
 				if(rs.getInt("ID") == ID){
 					String A = rs.getString("院系");
-					String B = rs.getString("年级");
-					if(a==0){
+				
 						jiansuolist = tj(A);
-					}else{
-						jiansuolist = tj(B);
-					}
+				
 				}
 			}
 			rs.close();
@@ -268,16 +300,15 @@ public class sqlconnect {
 			Statement statement =getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from Teacher");
 			while(rs.next()){
-				if((rs.getString("院系").equals(A)) || rs.getString("年级").equals(A)){
+				if((rs.getString("院系").equals(A))){
 					ArrayList<String> ml = new ArrayList<String> ();				
 					
 					int ID = rs.getInt("ID");
 					ml.add(getname(ID,"teacher"));
 					ml.add(rs.getString("院系"));
 					ml.add(rs.getString("major"));
-					ml.add(rs.getString("职位"));
-					ml.add(rs.getString("sex"));
 					ml.add(getusername(ID,"teacher"));
+					ml.add(rs.getString("url"));
 
 					jiansuolist.add(ml);
 				} 
@@ -331,9 +362,9 @@ public class sqlconnect {
 		int tid = getID(teachername,"teacher");
 		int sid = getID(studentname,"student");
 		String sname = getname(sid,"student");
-		
+		int x = 0;
 		try{
-			int x = 0;
+			
 			Statement statement =getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from Yuyue");
 			while(rs.next()){
@@ -342,11 +373,12 @@ public class sqlconnect {
 			}
 		
 			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Yuyue(ID,studentID,teacherID,"
-																					+ "time) values(?,?,?,?)");
+																					+ "time,n) values(?,?,?,?,?)");
 			ps.setInt(1,x + 1);
 			ps.setInt(2, sid);
 			ps.setInt(3, tid);
 			ps.setString(4, "第" + n + "周的周" + j + "第" + i + "节课");
+			ps.setInt(5, 0);
 			ps.executeUpdate();
 			ps.close();
 			rs.close();
@@ -357,22 +389,24 @@ public class sqlconnect {
 		}
 		
 		try{
-			int x = 0;
+			int z = 0;
 			Statement statement =getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("select * from appoint");
 			while(rs.next()){
 				int y = rs.getInt("ID");
-				if(x < y) x = y;
+				if(z < y) z = y;
 			}
 	
 			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into appoint(ID,teacherID,n,i,j,"
-																					+ "what) values(?,?,?,?,?,?)");
-			ps.setInt(1,x + 1);
+																					+ "what,yID) values(?,?,?,?,?,?,?)");
+			ps.setInt(1,z + 1);
 			ps.setInt(2, tid);
 			ps.setInt(3, n);
 			ps.setInt(4, i);
 			ps.setInt(5, j);
-			ps.setString(6, sname + "已预约");
+			ps.setString(6, sname + "已预约待审核");
+			ps.setInt(7, x + 1);
+
 			ps.executeUpdate();
 			ps.close();
 			rs.close();
@@ -384,16 +418,16 @@ public class sqlconnect {
 		
 		try{
 			
-				int x = 0;
+				int z = 0;
 				Statement statement =getConnection().createStatement();
 				ResultSet rs = statement.executeQuery("select * from Teacher");
 				while(rs.next()){
 					if(rs.getInt("ID") == tid){
-						x = rs.getInt("Num") + 1;
+						z = rs.getInt("Num") + 1;
 					}
 				}
 			
-			String sql = "update Teacher set Num =" + "'" + x + "'"+ " where username = " + "'" +teachername + "'";
+			String sql = "update Teacher set Num =" + "'" + z + "'"+ " where username = " + "'" +teachername + "'";
 		
 			statement.executeUpdate(sql);
 			statement.close();
@@ -403,14 +437,58 @@ public class sqlconnect {
 		}
 	}
 	
-	public void del(String ID,String X){
-		String sql = "delete from " + X + " where ID ='" + ID + "'";
-		try {
-			PreparedStatement ps = (PreparedStatement) getConnection().prepareStatement(sql);
-			ps.executeUpdate();
-			ps.close();
-            connect.close();
-		} catch (SQLException e) {
+	public void del(String ID,String X,String name){
+		if(X.equals("1")){
+			
+			try{
+				String sql1 = "update appoint set what=" + "'" + "预约成功" + "'"+ " where yID = " + "'" +ID + "'";
+				Statement statement =getConnection().createStatement();
+				statement.executeUpdate(sql1);
+				statement.close();
+				connect.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			
+		}else{
+			try {
+				String sql = "delete from appoint where yID ='" + ID + "'";
+	
+				PreparedStatement ps = (PreparedStatement) getConnection().prepareStatement(sql);
+				ps.executeUpdate();
+				ps.close();
+	            connect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		try{
+			String sql1 = "update Yuyue set n=" + "'" + X + "'"+ " where ID = " + "'" +ID + "'";
+			Statement statement =getConnection().createStatement();
+			statement.executeUpdate(sql1);
+			statement.close();
+			connect.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		try{
+			
+			int z = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				if(rs.getString("name") == name){
+					z = rs.getInt("Num") - 1;
+				}
+			}
+		
+		String sql1 = "update Teacher set Num =" + "'" + z + "'"+ " where username = " + "'" +name + "'";
+	
+		statement.executeUpdate(sql1);
+		statement.close();
+		connect.close();
+		}catch(SQLException e){
 			e.printStackTrace();
 		}
 		
@@ -430,13 +508,15 @@ public class sqlconnect {
 			}
 	
 			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into appoint(ID,teacherID,n,i,j,"
-																					+ "what) values(?,?,?,?,?,?)");
+																					+ "what,yID) values(?,?,?,?,?,?,?)");
 			ps.setInt(1,x + 1);
 			ps.setInt(2, tid);
 			ps.setInt(3, n);
 			ps.setInt(4, i);
 			ps.setInt(5, j);
 			ps.setString(6, what);
+			ps.setInt(7, -1);
+
 			ps.executeUpdate();
 			ps.close();
 			rs.close();
@@ -447,56 +527,6 @@ public class sqlconnect {
 		}
 	}
 	
-	public void tm(String username,String what,String money) {
-		int ID = getID(username,"teacher");
-		try{
-			int x = 0;
-			Statement statement =getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from Money");
-			while(rs.next()){
-				int y = rs.getInt("ID");
-				if(x < y) x = y;
-			}
-	
-			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Money(ID,teacherID,what,money) values(?,?,?,?)");
-			ps.setInt(1,x + 1);
-			ps.setInt(2, ID);
-			ps.setString(3, what);
-			ps.setString(4, money);
-			ps.executeUpdate();
-			ps.close();
-			rs.close();
-			statement.close();
-			connect.close();
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void tk(String username,String what) {
-		int ID = getID(username,"teacher");
-		try{
-			int x = 0;
-			Statement statement =getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from Keyan");
-			while(rs.next()){
-				int y = rs.getInt("ID");
-				if(x < y) x = y;
-			}
-	
-			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Keyan(ID,teacherID,what) values(?,?,?)");
-			ps.setInt(1,x + 1);
-			ps.setInt(2, ID);
-			ps.setString(3, what);
-			ps.executeUpdate();
-			ps.close();
-			rs.close();
-			statement.close();
-			connect.close();
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
-	}
 	
 	public ArrayList<String> g(String username, String role){
 		int id = getID(username, role);
@@ -505,28 +535,7 @@ public class sqlconnect {
 		try{
 			Statement statement =getConnection().createStatement();
 		
-			if(role.equals("teacher")){
-				
-				ResultSet rs = statement.executeQuery("select * from Teacher");
-				while(rs.next()){
-					if(id == rs.getInt("ID")){
-						keyanlist.add(rs.getString("name"));
-						keyanlist.add(rs.getString("sex"));
-						keyanlist.add(rs.getString("tel"));
-						keyanlist.add(rs.getString("院系"));
-						keyanlist.add(rs.getString("country"));
-						keyanlist.add(rs.getString("民族"));
-						keyanlist.add(rs.getString("职位"));
-						keyanlist.add(rs.getString("社会面貌"));
-						keyanlist.add(rs.getString("major"));
-						
-
-					}
-				}
-				rs.close();
-				
-			}
-			else{
+		
 				ResultSet rs = statement.executeQuery("select * from Student");
 
 				while(rs.next()){
@@ -545,7 +554,6 @@ public class sqlconnect {
 					}
 				}
 				rs.close();
-			}
 			
 			
 			statement.close();
@@ -577,16 +585,66 @@ public class sqlconnect {
 		return num;
 	}
 
-	public void changenum(String username) {
+	
+
+	public void pachong(model M){
 		try{
-			String sql = "update Teacher set Num =" + "'" + 0 + "'"+ " where username = " + "'" +username + "'";
+			int x = 0;
 			Statement statement =getConnection().createStatement();
-			statement.executeUpdate(sql);
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
+			PreparedStatement ps =(PreparedStatement) getConnection().prepareStatement("insert into Teacher(ID,name,院系,major,url,Num,username) values(?,?,?,?,?,?,?)");
+			ps.setInt(1,x + 1);
+			ps.setString(2, M.getName());
+			ps.setString(3, M.getXueyuan());
+			ps.setString(4, M.getMajor());
+			ps.setString(5, M.getUrl());
+			ps.setInt(6, 0);
+			ps.setString(7, M.getUrl().substring(27));
+			ps.executeUpdate();
+			ps.close();
+		
+			
+			
+			rs.close();
 			statement.close();
 			connect.close();
-		}catch(SQLException e){
+		}catch (SQLException e){
 			e.printStackTrace();
 		}
 	}
+	
+	public void pchong(model M){
+		try{
+			int x = 0;
+			Statement statement =getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from Teacher");
+			while(rs.next()){
+				int y = rs.getInt("ID");
+				if(x < y) x = y;
+			}
+	
+			
+		
+			PreparedStatement qs =(PreparedStatement) getConnection().prepareStatement("insert into Password(username,password,role,name,ID) values(?,?,?,?,?)");
+			qs.setString(1, M.getUrl().substring(27));
+			qs.setString(2, "111111");
+			qs.setString(3, "teacher");
+			qs.setString(4, M.getName());
+			qs.setInt(5, x);
+			qs.executeUpdate();
 
+			qs.close();
+			
+			rs.close();
+			statement.close();
+			connect.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
 }

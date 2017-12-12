@@ -92,7 +92,7 @@ String username = (String)session.getAttribute("username");
 	<div id="main">
 			<table height="50px" width="1250px" border="0" cellpadding="0" cellspacing="0">				
 				<tr height="20px">
-					<td></td>
+					<td rowspan="2"><img src="logal.png" /></td>
 					<td rowspan="2" align="right">欢迎您， <%=session.getAttribute("name") %>！</td>
 					<td colspan="4"  align="right">
 							<span id="time" style="font-size:15px;">
@@ -103,7 +103,6 @@ String username = (String)session.getAttribute("username");
 					</td>
 				</tr>
 				<tr height="30px" align="center">
-					<td  width="800px"></td>
 			 
 					<td width="70px"><a href="tg?username=<%= username %>&role=student" target = "student">个人信息</a></td>
 					<td width="40px"><a href="123.jsp" target="student">主页</a></td>

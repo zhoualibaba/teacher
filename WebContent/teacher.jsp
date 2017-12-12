@@ -71,7 +71,11 @@ padding:0px;
 		}
 	}
 	
+	function yuyue(){
+			document.getElementById("nums").style.color="";
+			document.getElementById("nums").innerHTML="新生预约";
 	
+	}
 	
 	 function defaulIframePageHeight() {
 		    var ifm = document.getElementById("defaulIframePage");
@@ -89,7 +93,7 @@ padding:0px;
 <%
 String role = (String)session.getAttribute("role");
 String name = (String)session.getAttribute("name");
-
+String url = (String)session.getAttribute("url");
 String username = (String)session.getAttribute("username");
 
 %>
@@ -105,7 +109,7 @@ String username = (String)session.getAttribute("username");
 	<div id="main">
 			<table height="50px" width="1250px" border="0" cellpadding="0" cellspacing="0">				
 				<tr height="20px">
-					<td></td>
+					<td rowspan="2"><img src="logal.png" /></td>
 					<td rowspan="2" align="right">欢迎您， <%=session.getAttribute("name") %>！</td>
 					<td colspan="4"  align="right">
 							<span id="time" style="font-size:15px;">
@@ -116,9 +120,8 @@ String username = (String)session.getAttribute("username");
 					</td>
 				</tr>
 				<tr height="30px" align="center">
-					<td  width="800px"></td>
 					
-					<td width="70px"><a href="tg?username=<%= username %>&role=teacher" target = "teacher">个人信息</a></td>
+					<td width="70px"><a href=<%=url %> target = "#">个人主页</a></td>
 					<td width="40px"><a href="123.jsp" target="teacher">主页</a></td>
 					<td width="40px"><a href="passwordchange.jsp">密码</a></td>
 					<td width="40px"><a href="login.jsp" onclick="return relogin()">退出</a></td>
@@ -129,9 +132,8 @@ String username = (String)session.getAttribute("username");
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
 			<td width = "90px"> <a href="appoint?username=<%= username %>&role=<%=role %>" target = "teacher">行程安排</a></td>
-			<td width = "90px"> <a href="money?username=<%= username %>&role=<%=role %>" target = "teacher">教师基金</a></td>
-			<td width = "90px"> <a href="keyan?username=<%= username %>&role=<%=role %>" target = "teacher">科研成果</a></td>
-			<td width = "120px"> <a href="yuyue?username=<%= username %>&role=<%=role %>" target = "teacher"><span id="nums">学生预约</span></a></td>
+			
+			<td width = "120px"> <a href="yuyue?username=<%= username %>&role=<%=role %>" target = "teacher" onclick="yuyue()"><span id="nums">学生预约</span></a></td>
 			<td></td>
 		</tr>
 	</table>	

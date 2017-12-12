@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 function check(){
-	alert("预约成功");
+	alert("已预约，待审核");
 }
 
 </script>
@@ -20,7 +20,7 @@ function check(){
 
 
 #next a{  
-    background-color:#b7d3df;  
+    background-color:#00FF7F;  
     text-decoration:none;  
     color:#000000;  
     display:block;  
@@ -43,10 +43,6 @@ function check(){
     /*和使用负值向反方向移动*/  
 }  
 </style>
-
-
-
-
 
 </head>
 <body >
@@ -129,9 +125,9 @@ for(int i = 0; i < 8; i ++){
 			%><td><%=what %></td><%
 		}else{
 			if(role.equals("teacher")){
-				%><td bgcolor="#b7d3df"><a href = "ty.jsp?n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>&i=<%=i + 1%>&j=<%=j + 1%>" target = "teacher" title = "点击添加此时间的行程安排">添加</a></td><%
+				%><td bgcolor="#00FF7F"><a href = "ty.jsp?n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>&i=<%=i + 1%>&j=<%=j + 1%>" target = "teacher" title = "点击添加此时间的行程安排">添加</a></td><%
 			}else{
-				%><td bgcolor="#b7d3df"><a href = "yy?i=<%=i + 1%>&j=<%=j + 1%>&n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>" onclick ="check()">可预约</a></td><%
+				%><td bgcolor="#00FF7F"><a href = "yy?i=<%=i + 1%>&j=<%=j + 1%>&n=<%=n%>&role=<%= role%>&username=<%=username %>&sname=<%=sname %>" onclick ="check()">可预约</a></td><%
 			}
 		}
 	}

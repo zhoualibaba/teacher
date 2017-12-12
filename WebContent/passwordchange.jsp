@@ -61,14 +61,13 @@ function check(){
 
 <body>
 <form action = "passwordchange">
-	<input name="username" type="hidden"  value="<%=session.getAttribute("username") %>">
-	<input id="password" type="hidden" value="<%=session.getAttribute("password") %>">
+	<input name="username" type="hidden" value="<%=session.getAttribute("username") %>">
+	<input id="password"  type="hidden" value="<%=session.getAttribute("password") %>">
 	<input name="role" type="hidden" value="<%=session.getAttribute("role") %>">
 	
 	<div style="height:100px"></div>
 	<div >
 	<center>
-	
 		<table width = "400px"  border="0" cellpadding="0" cellspacing="0" >
 	<tr height = "40px">
 	<td></td>

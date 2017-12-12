@@ -1,6 +1,8 @@
 
 package action;
 
+import java.io.IOException;
+
 /*
  * 导入数据库
  * 判断中的1
@@ -14,7 +16,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import SQL.sqlconnect;
-
+import pa.chong;
 public class login  extends ActionSupport{
 	/**
 	 * 
@@ -25,8 +27,8 @@ public class login  extends ActionSupport{
     HttpSession session = req.getSession();
     static sqlconnect sqlcon = new sqlconnect();
     
-    public String login_in() {
-    	
+    public String login_in() throws IOException {
+    	if(sqlcon.l()==0) pa.chong.C();
     	String username = req.getParameter("username");
     	String password = req.getParameter("password");
     	String role = req.getParameter("role");
@@ -40,7 +42,8 @@ public class login  extends ActionSupport{
     		if(role.equals("teacher")){
     		   	
     	       		int number = sqlcon.getnum(username);
-    	       	
+    	       		String url = sqlcon.geturl(username);
+    	       		session.setAttribute("url", url);
         		session.setAttribute("num", number);
         	}
     	}else{

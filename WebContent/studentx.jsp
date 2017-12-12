@@ -87,7 +87,7 @@ String teachername = (String)request.getParameter("teachername");
 	<div id="main">
 			<table height="50px" width="1250px" border="0" cellpadding="0" cellspacing="0">				
 				<tr height="20px">
-					<td></td>
+					<td rowspan="2"><img src="logal.png" /></td>
 					<td rowspan="2" align="right">欢迎您!</td>
 					<td colspan="4"  align="right">
 							<span id="time" style="font-size:15px;">
@@ -98,22 +98,18 @@ String teachername = (String)request.getParameter("teachername");
 					</td>
 				</tr>
 				<tr height="30px" align="center">
-					<td  width="800px"></td>
 			
-					<td width="70px"><a href="#">个人信息</a></td>
-					<td width="40px"><a href="123.jsp" target="student">主页</a></td>
-					<td width="40px"><a href="passwordchange.jsp">密码</a></td>
-					<td width="40px"><a href="login.jsp" onclick="return relogin()">退出</a></td>
+					<td width="70px"></td>
+					<td width="40px"></td>
+					<td width="40px"></td>
+					<td width="40px"></td>
 				</tr>
 			</table>
 	</div>
 	<div id = "daohang" style="width:100%">
 	<table style="border-bottom:10px solid #b7d3df;" border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr >
-			<td width = "120px"> <a href="tg?username=<%= teachername %>&role=teacher" target = "js">教师信息</a></td>
-			<td width = "90px"> <a href="appoint?username=<%= teachername %>&role=student&sname=<%=username %>" target = "js">行程安排</a></td>
-			<td width = "90px"> <a href="money?username=<%= teachername %>&role=student" target = "js">教师基金</a></td>
-			<td width = "90px"> <a href="keyan?username=<%= teachername %>&role=student" target = "js">科研成果</a></td>
+			<td width = "90px"> <a href="appoint?username=<%= teachername %>&role=student&sname=<%=username %>" target = "js">教师预约</a></td>
 			<td></td>
 		</tr>
 	</table>	

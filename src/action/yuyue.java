@@ -30,12 +30,19 @@ public class yuyue  extends ActionSupport{
    	
     public String y(){
        	ArrayList<ArrayList<String>> yuyuelist = sqlcon.yuyue(username, role);
-       	if(role.equals("teacher")){
-       		sqlcon.changenum(username);
-       	}
+    
        	session.setAttribute("username", username);
    		session.setAttribute("role", role);
    		session.setAttribute("yuyuelist", yuyuelist);
+   		return SUCCESS;
+    }
+    
+    public String yy(){
+    	
+       	String ID = req.getParameter("id");
+       	String n = req.getParameter("n");
+       	sqlcon.del(ID, n, username);
+       	y();
    		return SUCCESS;
     }
     

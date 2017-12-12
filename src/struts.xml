@@ -48,30 +48,6 @@
 			</result>
 		</action>
 		
-		<action name="money" method="m" class="action.money">
-			<result>
-				money.jsp
-			</result>
-		</action>
-		
-		<action name="tm" method="tm" class="action.money">
-			<result>
-				money.jsp
-			</result>
-		</action>
-		
-		<action name="changemoney" method="cm" class="action.money">
-			<result>
-				money.jsp
-			</result>
-		</action>
-		
-		<action name="delmoney" method="dm" class="action.money">
-			<result>
-				money.jsp
-			</result>
-		</action>
-		
 		<action name="appoint" method="app" class="action.appoint">
 			<result>
 				appoint.jsp
@@ -90,29 +66,6 @@
 			</result>
 		</action>
 		
-		<action name="keyan" method="k" class="action.keyan">
-			<result>
-				keyan.jsp
-			</result>
-		</action>
-		
-		<action name="tk" method="tk" class="action.keyan">
-			<result>
-				keyan.jsp
-			</result>
-		</action>
-		
-		<action name="changekeyan" method="ck" class="action.keyan">
-			<result>
-				keyan.jsp
-			</result>
-		</action>
-		
-		<action name="delkeyan" method="dk" class="action.keyan">
-			<result>
-				keyan.jsp
-			</result>
-		</action>
 		
 		<action name="yuyue" method="y" class="action.yuyue">
 			<result>
@@ -146,11 +99,15 @@
 		</action>
 		
 		<action name="tg" method="tg" class="action.gerenxixin">
-			<result name = "teacher">
-				t.jsp
-			</result>
+			
 			<result name = "student">
 				s.jsp
+			</result>
+		</action>
+		
+		<action name="yyy" method="yy" class="action.yuyue">
+			<result>
+				yuyue.jsp
 			</result>
 		</action>
 		
